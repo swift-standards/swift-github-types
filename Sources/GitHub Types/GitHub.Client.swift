@@ -13,8 +13,12 @@ import GitHub_Traffic_Types
 import GitHub_Types_Shared
 
 // https://docs.github.com/en/rest?apiVersion=2022-11-28
+// NOTE: no @Witness here — this struct has no closure properties (it composes
+// sub-clients, each of which is its own @Witness struct), and @Witness requires
+// at least one closure property or the macro diagnoses `noClosureProperties`.
+// The original @DependencyClient attribute was a no-op copy-paste holdover;
+// dropping it is a mechanical necessity, not a semantic redesign.
 extension GitHub {
-    @DependencyClient
     public struct Client: Sendable {
         public var traffic: Traffic.Client
         public var repositories: Repositories.Client

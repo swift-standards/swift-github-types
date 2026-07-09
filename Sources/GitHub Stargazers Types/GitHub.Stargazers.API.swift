@@ -6,7 +6,6 @@
 //
 
 import Dependencies
-import DependenciesMacros
 import Foundation
 import GitHub_Types_Shared
 import URLRouting
@@ -18,7 +17,10 @@ extension GitHub.Stargazers {
 }
 
 extension GitHub.Stargazers.API {
-    @DependencyClient
+    // NOTE: no @Witness here — Router has no closure properties (`body` is a
+    // computed ParserPrinter, `init()` takes no arguments), matching the sibling
+    // Router structs in the other GitHub *Types targets which never carried
+    // @DependencyClient. The original attribute was a no-op copy-paste holdover.
     public struct Router: ParserPrinter, Sendable {
         public typealias Input = URLRequestData
         public typealias Output = GitHub.Stargazers.API

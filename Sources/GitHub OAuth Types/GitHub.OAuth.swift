@@ -5,6 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 10/09/2025.
 //
 
+import EmailAddress
 import Foundation
 import GitHub_Types_Shared
 

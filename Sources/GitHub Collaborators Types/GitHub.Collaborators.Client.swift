@@ -8,55 +8,47 @@
 import GitHub_Types_Shared
 
 extension GitHub.Collaborators {
-    @DependencyClient
+    @Witness
     public struct Client: Sendable {
         // https://docs.github.com/en/rest/collaborators/collaborators#list-repository-collaborators
-        @DependencyEndpoint
         public var list:
-            @Sendable (_ owner: String, _ repo: String, _ request: List.Request?) async throws ->
+            @Sendable (_ owner: String, _ repo: String, _ request: List.Request?) async throws(Witness.Unimplemented.Error) ->
                 List.Response
 
         // https://docs.github.com/en/rest/collaborators/collaborators#check-if-a-user-is-a-repository-collaborator
-        @DependencyEndpoint
         public var check:
-            @Sendable (_ owner: String, _ repo: String, _ username: String) async throws -> Void
+            @Sendable (_ owner: String, _ repo: String, _ username: String) async throws(Witness.Unimplemented.Error) -> Void
 
         // https://docs.github.com/en/rest/collaborators/collaborators#add-a-repository-collaborator
-        @DependencyEndpoint
         public var add:
             @Sendable (_ owner: String, _ repo: String, _ username: String, _ request: Add.Request?)
-                async throws -> Add.Response
+                async throws(Witness.Unimplemented.Error) -> Add.Response
 
         // https://docs.github.com/en/rest/collaborators/collaborators#remove-a-repository-collaborator
-        @DependencyEndpoint
         public var remove:
-            @Sendable (_ owner: String, _ repo: String, _ username: String) async throws -> Void
+            @Sendable (_ owner: String, _ repo: String, _ username: String) async throws(Witness.Unimplemented.Error) -> Void
 
         // https://docs.github.com/en/rest/collaborators/collaborators#get-repository-permissions-for-a-user
-        @DependencyEndpoint
         public var getPermission:
-            @Sendable (_ owner: String, _ repo: String, _ username: String) async throws ->
+            @Sendable (_ owner: String, _ repo: String, _ username: String) async throws(Witness.Unimplemented.Error) ->
                 GetPermission.Response
 
         // https://docs.github.com/en/rest/collaborators/invitations#list-repository-invitations
-        @DependencyEndpoint
         public var listInvitations:
             @Sendable (_ owner: String, _ repo: String, _ request: Invitations.List.Request?)
-                async throws
+                async throws(Witness.Unimplemented.Error)
                 -> Invitations.List.Response
 
         // https://docs.github.com/en/rest/collaborators/invitations#update-a-repository-invitation
-        @DependencyEndpoint
         public var updateInvitation:
             @Sendable (
                 _ owner: String, _ repo: String, _ invitationId: Int,
                 _ request: Invitations.Update.Request
-            ) async throws -> Invitations.Update.Response
+            ) async throws(Witness.Unimplemented.Error) -> Invitations.Update.Response
 
         // https://docs.github.com/en/rest/collaborators/invitations#delete-a-repository-invitation
-        @DependencyEndpoint
         public var deleteInvitation:
-            @Sendable (_ owner: String, _ repo: String, _ invitationId: Int) async throws -> Void
+            @Sendable (_ owner: String, _ repo: String, _ invitationId: Int) async throws(Witness.Unimplemented.Error) -> Void
     }
 }
 

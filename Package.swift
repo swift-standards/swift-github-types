@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.3.1
 
 import PackageDescription
 
@@ -35,20 +35,35 @@ extension Target.Dependency {
 }
 
 extension Target.Dependency {
-    static var dependenciesMacros: Self {
-        .product(name: "DependenciesMacros", package: "swift-dependencies")
+    static var dependencies: Self {
+        .product(name: "Dependencies", package: "swift-dependencies")
     }
-    static var tagged: Self { .product(name: "Tagged", package: "swift-tagged") }
-    static var typesFoundation: Self {
-        .product(name: "TypesFoundation", package: "swift-types-foundation")
+    static var taggedPrimitives: Self {
+        .product(name: "Tagged Primitives", package: "swift-tagged-primitives")
+    }
+    static var casePaths: Self {
+        // TRANSITIONAL: pointfreeco/swift-case-paths — no institute equivalent yet;
+        // kept temporarily per the manifest-swap directive (do not eliminate this wave).
+        .product(name: "CasePaths", package: "swift-case-paths")
+    }
+    static var urlRouting: Self {
+        // TRANSITIONAL: pointfreeco/swift-url-routing — no institute equivalent yet;
+        // kept temporarily per the manifest-swap directive (do not eliminate this wave).
+        .product(name: "URLRouting", package: "swift-url-routing")
+    }
+    static var emailAddress: Self {
+        .product(name: "EmailAddress", package: "swift-emailaddress")
     }
 }
 
 let package = Package(
     name: "swift-github-types",
     platforms: [
-        .macOS(.v14),
-        .iOS(.v17),
+        .macOS(.v26),
+        .iOS(.v26),
+        .tvOS(.v26),
+        .watchOS(.v26),
+        .visionOS(.v26),
     ],
     products: [
         .library(name: .githubTypes, targets: [.githubTypes]),
@@ -60,75 +75,83 @@ let package = Package(
         .library(name: .githubTypesShared, targets: [.githubTypesShared]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.9.2"),
-        .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
-        .package(url: "https://github.com/coenttb/swift-types-foundation", from: "0.0.1"),
+        .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-tagged-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-foundations/swift-emailaddress.git", branch: "main"),
+        .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.7.2"),
+        .package(url: "https://github.com/pointfreeco/swift-url-routing", from: "0.6.0"),
     ],
     targets: [
         .target(
             name: .githubTypesShared,
             dependencies: [
-                .typesFoundation,
-                .dependenciesMacros,
-                .tagged,
+                .dependencies,
+                .taggedPrimitives,
+                .casePaths,
+                .urlRouting,
             ]
         ),
         .target(
             name: .githubTypes,
             dependencies: [
-                .typesFoundation,
                 .githubTypesShared,
                 .githubTrafficTypes,
                 .githubRepositoriesTypes,
                 .githubStargazersTypes,
                 .githubOAuthTypes,
                 .githubCollaboratorsTypes,
-                .dependenciesMacros,
+                .dependencies,
             ]
         ),
         .target(
             name: .githubTrafficTypes,
             dependencies: [
-                .typesFoundation,
                 .githubTypesShared,
-                .dependenciesMacros,
-                .tagged,
+                .dependencies,
+                .taggedPrimitives,
+                .casePaths,
+                .urlRouting,
             ]
         ),
         .target(
             name: .githubRepositoriesTypes,
             dependencies: [
-                .typesFoundation,
                 .githubTypesShared,
-                .dependenciesMacros,
-                .tagged,
+                .dependencies,
+                .taggedPrimitives,
+                .casePaths,
+                .urlRouting,
             ]
         ),
         .target(
             name: .githubStargazersTypes,
             dependencies: [
-                .typesFoundation,
                 .githubTypesShared,
-                .dependenciesMacros,
-                .tagged,
+                .dependencies,
+                .taggedPrimitives,
+                .casePaths,
+                .urlRouting,
             ]
         ),
         .target(
             name: .githubOAuthTypes,
             dependencies: [
-                .typesFoundation,
                 .githubTypesShared,
-                .dependenciesMacros,
-                .tagged,
+                .dependencies,
+                .taggedPrimitives,
+                .casePaths,
+                .urlRouting,
+                .emailAddress,
             ]
         ),
         .target(
             name: .githubCollaboratorsTypes,
             dependencies: [
-                .typesFoundation,
                 .githubTypesShared,
-                .dependenciesMacros,
-                .tagged,
+                .dependencies,
+                .taggedPrimitives,
+                .casePaths,
+                .urlRouting,
             ]
         ),
         .testTarget(

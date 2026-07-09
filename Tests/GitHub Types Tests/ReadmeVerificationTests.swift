@@ -1,7 +1,6 @@
 import Dependencies
 import Foundation
 import Testing
-import TypesFoundation
 
 @testable import GitHub_Repositories_Types
 @testable import GitHub_Stargazers_Types
@@ -48,13 +47,13 @@ struct ReadmeVerificationTests {
     @Test("Repository model types (README lines 51-53)")
     func repositoryModelExample() async throws {
         let repository = GitHub.Repository(
-            id: .init(rawValue: 123),
+            id: .init(123),
             nodeId: "test-node-id",
             name: "test-repo",
             fullName: "user/test-repo",
             private: false,
             owner: GitHub.Owner(
-                id: .init(rawValue: 456),
+                id: .init(456),
                 login: "user",
                 nodeId: "owner-node-id",
                 avatarUrl: URL(string: "https://github.com/avatar")!,
@@ -356,11 +355,11 @@ struct ReadmeVerificationTests {
 
         // Verify the main client has all sub-clients as properties
         let client = GitHub.Client(
-            traffic: GitHub.Traffic.Client(),
-            repositories: GitHub.Repositories.Client(),
-            stargazers: GitHub.Stargazers.Client(),
-            oauth: GitHub.OAuth.Client(),
-            collaborators: GitHub.Collaborators.Client()
+            traffic: GitHub.Traffic.Client.unimplemented(),
+            repositories: GitHub.Repositories.Client.unimplemented(),
+            stargazers: GitHub.Stargazers.Client.unimplemented(),
+            oauth: GitHub.OAuth.Client.unimplemented(),
+            collaborators: GitHub.Collaborators.Client.unimplemented()
         )
 
         let _: GitHub.Traffic.Client = client.traffic
@@ -373,13 +372,13 @@ struct ReadmeVerificationTests {
     func mockClientTestingExample() async throws {
         // Create mock repository data (exactly as shown in README)
         let mockRepo = GitHub.Repository(
-            id: .init(rawValue: 123),
+            id: .init(123),
             nodeId: "MDEwOlJlcG9zaXRvcnkxMjM=",
             name: "test-repo",
             fullName: "user/test-repo",
             private: false,
             owner: GitHub.Owner(
-                id: .init(rawValue: 456),
+                id: .init(456),
                 login: "user",
                 nodeId: "MDQ6VXNlcjQ1Ng==",
                 avatarUrl: URL(string: "https://github.com/avatar")!,
@@ -487,13 +486,13 @@ struct ReadmeVerificationTests {
 
         // Verify Response types conform
         let repository = GitHub.Repository(
-            id: .init(rawValue: 1),
+            id: .init(1),
             nodeId: "node",
             name: "name",
             fullName: "full/name",
             private: false,
             owner: GitHub.Owner(
-                id: .init(rawValue: 2),
+                id: .init(2),
                 login: "login",
                 nodeId: "node",
                 avatarUrl: URL(string: "https://example.com")!,
