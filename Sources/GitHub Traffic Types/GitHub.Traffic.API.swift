@@ -8,8 +8,7 @@
 import GitHub_Types_Shared
 
 extension GitHub.Traffic {
-    @CasePathable
-    @dynamicMemberLookup
+    @Cases
     public enum API: Equatable, Sendable {
         // https://docs.github.com/en/rest/metrics/traffic#get-repository-views
         case views(owner: String, repo: String, per: Per?)
@@ -32,7 +31,13 @@ extension GitHub.Traffic.API {
         public var body: some URLRouting.Router<GitHub.Traffic.API> {
             OneOf {
                 // https://docs.github.com/en/rest/metrics/traffic#get-repository-views
-                URLRouting.Route(.case(GitHub.Traffic.API.views)) {
+                URLRouting.Route(
+                    .convert(
+                        apply: { (owner: $0.0.0, repo: $0.0.1, per: $0.1) },
+                        unapply: { (($0.owner, $0.repo), $0.per) }
+                    )
+                    .map(.case(GitHub.Traffic.API.cases.views))
+                ) {
                     Method.get
                     Path { "repos" }
                     Path { Parse(.string) }  // owner
@@ -47,7 +52,13 @@ extension GitHub.Traffic.API {
                 }
 
                 // https://docs.github.com/en/rest/metrics/traffic#get-repository-clones
-                URLRouting.Route(.case(GitHub.Traffic.API.clones)) {
+                URLRouting.Route(
+                    .convert(
+                        apply: { (owner: $0.0.0, repo: $0.0.1, per: $0.1) },
+                        unapply: { (($0.owner, $0.repo), $0.per) }
+                    )
+                    .map(.case(GitHub.Traffic.API.cases.clones))
+                ) {
                     Method.get
                     Path { "repos" }
                     Path { Parse(.string) }  // owner
@@ -62,7 +73,13 @@ extension GitHub.Traffic.API {
                 }
 
                 // https://docs.github.com/en/rest/metrics/traffic#get-top-referral-paths
-                URLRouting.Route(.case(GitHub.Traffic.API.paths)) {
+                URLRouting.Route(
+                    .convert(
+                        apply: { (owner: $0.0, repo: $0.1) },
+                        unapply: { ($0.owner, $0.repo) }
+                    )
+                    .map(.case(GitHub.Traffic.API.cases.paths))
+                ) {
                     Method.get
                     Path { "repos" }
                     Path { Parse(.string) }  // owner
@@ -73,7 +90,13 @@ extension GitHub.Traffic.API {
                 }
 
                 // https://docs.github.com/en/rest/metrics/traffic#get-top-referral-sources
-                URLRouting.Route(.case(GitHub.Traffic.API.referrers)) {
+                URLRouting.Route(
+                    .convert(
+                        apply: { (owner: $0.0, repo: $0.1) },
+                        unapply: { ($0.owner, $0.repo) }
+                    )
+                    .map(.case(GitHub.Traffic.API.cases.referrers))
+                ) {
                     Method.get
                     Path { "repos" }
                     Path { Parse(.string) }  // owner

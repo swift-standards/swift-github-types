@@ -41,14 +41,10 @@ extension Target.Dependency {
     static var taggedPrimitives: Self {
         .product(name: "Tagged Primitives", package: "swift-tagged-primitives")
     }
-    static var casePaths: Self {
-        // TRANSITIONAL: pointfreeco/swift-case-paths — no institute equivalent yet;
-        // kept temporarily per the manifest-swap directive (do not eliminate this wave).
-        .product(name: "CasePaths", package: "swift-case-paths")
+    static var dual: Self {
+        .product(name: "Dual", package: "swift-dual")
     }
     static var urlRouting: Self {
-        // TRANSITIONAL: pointfreeco/swift-url-routing — no institute equivalent yet;
-        // kept temporarily per the manifest-swap directive (do not eliminate this wave).
         .product(name: "URLRouting", package: "swift-url-routing")
     }
     static var emailAddress: Self {
@@ -78,8 +74,8 @@ let package = Package(
         .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main"),
         .package(url: "https://github.com/swift-primitives/swift-tagged-primitives.git", branch: "main"),
         .package(url: "https://github.com/swift-foundations/swift-emailaddress.git", branch: "main"),
-        .package(url: "https://github.com/pointfreeco/swift-case-paths.git", from: "1.7.2"),
-        .package(url: "https://github.com/swift-foundations/swift-url-routing.git", from: "0.6.0"),
+        .package(url: "https://github.com/swift-foundations/swift-dual.git", branch: "main"),
+        .package(url: "https://github.com/swift-foundations/swift-url-routing.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -87,7 +83,7 @@ let package = Package(
             dependencies: [
                 .dependencies,
                 .taggedPrimitives,
-                .casePaths,
+                .dual,
                 .urlRouting,
             ]
         ),
@@ -109,7 +105,7 @@ let package = Package(
                 .githubTypesShared,
                 .dependencies,
                 .taggedPrimitives,
-                .casePaths,
+                .dual,
                 .urlRouting,
             ]
         ),
@@ -119,7 +115,7 @@ let package = Package(
                 .githubTypesShared,
                 .dependencies,
                 .taggedPrimitives,
-                .casePaths,
+                .dual,
                 .urlRouting,
             ]
         ),
@@ -129,7 +125,7 @@ let package = Package(
                 .githubTypesShared,
                 .dependencies,
                 .taggedPrimitives,
-                .casePaths,
+                .dual,
                 .urlRouting,
             ]
         ),
@@ -139,7 +135,7 @@ let package = Package(
                 .githubTypesShared,
                 .dependencies,
                 .taggedPrimitives,
-                .casePaths,
+                .dual,
                 .urlRouting,
                 .emailAddress,
             ]
@@ -150,7 +146,7 @@ let package = Package(
                 .githubTypesShared,
                 .dependencies,
                 .taggedPrimitives,
-                .casePaths,
+                .dual,
                 .urlRouting,
             ]
         ),
