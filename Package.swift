@@ -30,6 +30,10 @@ let package = Package(
             url: "https://github.com/swift-ietf/swift-rfc-3986.git",
             branch: "main"
         ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            branch: "main"
+        ),
     ],
     targets: [
         .target(
@@ -41,6 +45,8 @@ let package = Package(
                 ),
                 .product(name: "RFC 3339", package: "swift-rfc-3339"),
                 .product(name: "RFC 3986", package: "swift-rfc-3986"),
+                // GitHub.Repository.ID / GitHub.Owner.ID are Tagged<_, UInt64>.
+                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
             ]
         ),
         .testTarget(

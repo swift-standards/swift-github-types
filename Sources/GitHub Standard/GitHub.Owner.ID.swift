@@ -1,12 +1,12 @@
-extension GitHub.Owner {
-    public struct ID: Equatable, Hashable, Sendable {
-        public let rawValue: UInt64
+import Tagged_Primitives
 
-        public init(rawValue: UInt64) {
-            // swift-linter:disable:next raw value access
-            // REASON: brand owner boundary, [LINT-EXCLUDE-001] — the newtype's
-            //   own declaration assigns its stored raw value.
-            self.rawValue = rawValue
-        }
-    }
+extension GitHub.Owner {
+    /// GitHub's numeric owner identifier.
+    ///
+    /// Modelled as `Tagged` rather than a bespoke `rawValue` struct so the
+    /// ecosystem's Tagged conventions apply and the conditional conformances
+    /// (`Codable`, `Equatable`, `Hashable`, `Sendable`) come from `Underlying`
+    /// instead of being hand-maintained here. Access the value via
+    /// `.underlying`; construct with `ID(_:)`.
+    public typealias ID = Tagged<GitHub.Owner, UInt64>
 }
