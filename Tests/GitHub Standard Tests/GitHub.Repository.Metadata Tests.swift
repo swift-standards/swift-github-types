@@ -10,8 +10,8 @@ extension GitHub.Repository.Metadata {
         @Test("Metadata retains provider vocabulary without Foundation conversion")
         func values() throws(RFC_3986.Error) {
             let owner = GitHub.Owner.Summary(
-                id: .init(rawValue: 1),
-                login: .init(rawValue: "swiftlang"),
+                id: .init(1),
+                login: .init("swiftlang"),
                 nodeID: "MDEyOk9yZ2FuaXphdGlvbjE=",
                 avatarURL: try RFC_3986.URI("https://avatars.githubusercontent.com/u/1"),
                 gravatarID: "",
@@ -28,9 +28,9 @@ extension GitHub.Repository.Metadata {
                 return
             }
             let metadata = GitHub.Repository.Metadata(
-                id: .init(rawValue: 2),
+                id: .init(2),
                 nodeID: "R_kgDO",
-                name: .init(rawValue: "swift"),
+                name: .init("swift"),
                 fullName: "swiftlang/swift",
                 owner: owner,
                 htmlURL: try RFC_3986.URI("https://github.com/swiftlang/swift"),
@@ -63,7 +63,7 @@ extension GitHub.Repository.Metadata {
                 pushedAt: nil
             )
 
-            #expect(metadata.owner.login == .init(rawValue: "swiftlang"))
+            #expect(metadata.owner.login == .init("swiftlang"))
             #expect(metadata.createdAt == createdAt)
             #expect(metadata.size == UInt64(5))
             #expect(metadata.visibility == .public)

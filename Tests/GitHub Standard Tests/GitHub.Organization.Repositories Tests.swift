@@ -8,13 +8,13 @@ extension GitHub.Organization.Repositories {
         @Test("The request retains semantic organization and pagination values")
         func request() {
             let request = GitHub.Organization.Repositories.Request(
-                organization: .init(rawValue: "swiftlang"),
+                organization: .init("swiftlang"),
                 type: .public,
                 page: .first,
                 size: .maximum
             )
 
-            #expect(request.organization.rawValue == "swiftlang")
+            #expect(request.organization.underlying == "swiftlang")
             #expect(request.type == .public)
             #expect(request.page.rawValue == 1)
             #expect(request.size.rawValue == 100)
@@ -32,8 +32,8 @@ extension GitHub.Organization.Repositories {
         @Test("The response preserves repository identity and public state")
         func response() {
             let repository = GitHub.Repository.Summary(
-                id: .init(rawValue: 42),
-                name: .init(rawValue: "swift"),
+                id: .init(42),
+                name: .init("swift"),
                 archived: false,
                 disabled: false,
                 fork: false,

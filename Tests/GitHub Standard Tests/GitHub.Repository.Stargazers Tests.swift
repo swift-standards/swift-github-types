@@ -10,8 +10,8 @@ extension GitHub.Repository.Stargazers {
         @Test("Stargazers preserve login and starred-at wire semantics")
         func response() throws(RFC_3986.Error) {
             let user = GitHub.User.Summary(
-                id: .init(rawValue: 42),
-                login: .init(rawValue: "octocat"),
+                id: .init(42),
+                login: .init("octocat"),
                 nodeID: "MDQ6VXNlcjE=",
                 avatarURL: try RFC_3986.URI("https://avatars.githubusercontent.com/u/1"),
                 gravatarID: "",
@@ -30,15 +30,15 @@ extension GitHub.Repository.Stargazers {
             let stargazer = Stargazer(user: user, starredAt: starredAt)
             let response = Response(stargazers: [stargazer])
 
-            #expect(response.stargazers.first?.user.login == .init(rawValue: "octocat"))
+            #expect(response.stargazers.first?.user.login == .init("octocat"))
             #expect(response.stargazers.first?.starredAt == starredAt)
         }
 
         @Test("Pagination uses the shared bounded GitHub page vocabulary")
         func request() {
             let request = Request(
-                owner: .init(rawValue: "swiftlang"),
-                repository: .init(rawValue: "swift"),
+                owner: .init("swiftlang"),
+                repository: .init("swift"),
                 page: .first,
                 size: .maximum
             )

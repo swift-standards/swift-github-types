@@ -20,8 +20,8 @@ extension GitHub.User.Authenticated {
                 return
             }
             let user = Profile(
-                id: .init(rawValue: 1),
-                login: .init(rawValue: "octocat"),
+                id: .init(1),
+                login: .init("octocat"),
                 name: "The Octocat",
                 email: nil,
                 avatarURL: avatarURL,

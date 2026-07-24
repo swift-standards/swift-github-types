@@ -9,17 +9,17 @@ extension GitHub.Repository.Traffic {
         @Test("Traffic requests retain provider repository vocabulary")
         func requests() {
             let views = Views.Request(
-                owner: .init(rawValue: "swiftlang"),
-                repository: .init(rawValue: "swift"),
+                owner: .init("swiftlang"),
+                repository: .init("swift"),
                 interval: .week
             )
             let paths = Paths.Request(
-                owner: .init(rawValue: "swiftlang"),
-                repository: .init(rawValue: "swift")
+                owner: .init("swiftlang"),
+                repository: .init("swift")
             )
 
-            #expect(views.owner == .init(rawValue: "swiftlang"))
-            #expect(views.repository == .init(rawValue: "swift"))
+            #expect(views.owner == .init("swiftlang"))
+            #expect(views.repository == .init("swift"))
             #expect(views.interval == .week)
             #expect(Operation.views(views) == .views(views))
             #expect(Operation.paths(paths) == .paths(paths))

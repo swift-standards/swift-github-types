@@ -9,8 +9,8 @@ extension GitHub.Repository.Content {
         func operation() throws {
             let path = try #require(Path(segments: ["Sources", "Package.swift"]))
             let request = Request(
-                organization: .init(rawValue: "swift-institute"),
-                repository: .init(rawValue: "Workspace"),
+                organization: .init("swift-institute"),
+                repository: .init("Workspace"),
                 path: path
             )
 
